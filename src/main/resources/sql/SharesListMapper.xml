@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bigbird.shares.mapper.list.SharesListMapper" >
+  <resultMap id="BaseResultMap" type="com.bigbird.shares.pojo.list.SharesList" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="symbol" property="symbol" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="trade" property="trade" jdbcType="REAL" />
+    <result column="pricechange" property="pricechange" jdbcType="REAL" />
+    <result column="changepercent" property="changepercent" jdbcType="REAL" />
+    <result column="buy" property="buy" jdbcType="REAL" />
+    <result column="sell" property="sell" jdbcType="REAL" />
+    <result column="settlement" property="settlement" jdbcType="REAL" />
+    <result column="open" property="open" jdbcType="REAL" />
+    <result column="high" property="high" jdbcType="REAL" />
+    <result column="low" property="low" jdbcType="REAL" />
+    <result column="volume" property="volume" jdbcType="DECIMAL" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="ticktime" property="ticktime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, symbol, name, trade, pricechange, changepercent, buy, sell, settlement, open, 
+    high, low, volume, amount, code, ticktime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from shares_list
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from shares_list
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bigbird.shares.pojo.list.SharesList" >
+    insert into shares_list (id, symbol, name, 
+      trade, pricechange, changepercent, 
+      buy, sell, settlement, open, 
+      high, low, volume, amount, 
+      code, ticktime)
+    values (#{id,jdbcType=INTEGER}, #{symbol,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{trade,jdbcType=REAL}, #{pricechange,jdbcType=REAL}, #{changepercent,jdbcType=REAL}, 
+      #{buy,jdbcType=REAL}, #{sell,jdbcType=REAL}, #{settlement,jdbcType=REAL}, #{open,jdbcType=REAL}, 
+      #{high,jdbcType=REAL}, #{low,jdbcType=REAL}, #{volume,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, 
+      #{code,jdbcType=VARCHAR}, #{ticktime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bigbird.shares.pojo.list.SharesList" >
+    insert into shares_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="symbol != null" >
+        symbol,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="trade != null" >
+        trade,
+      </if>
+      <if test="pricechange != null" >
+        pricechange,
+      </if>
+      <if test="changepercent != null" >
+        changepercent,
+      </if>
+      <if test="buy != null" >
+        buy,
+      </if>
+      <if test="sell != null" >
+        sell,
+      </if>
+      <if test="settlement != null" >
+        settlement,
+      </if>
+      <if test="open != null" >
+        open,
+      </if>
+      <if test="high != null" >
+        high,
+      </if>
+      <if test="low != null" >
+        low,
+      </if>
+      <if test="volume != null" >
+        volume,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="ticktime != null" >
+        ticktime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="symbol != null" >
+        #{symbol,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="trade != null" >
+        #{trade,jdbcType=REAL},
+      </if>
+      <if test="pricechange != null" >
+        #{pricechange,jdbcType=REAL},
+      </if>
+      <if test="changepercent != null" >
+        #{changepercent,jdbcType=REAL},
+      </if>
+      <if test="buy != null" >
+        #{buy,jdbcType=REAL},
+      </if>
+      <if test="sell != null" >
+        #{sell,jdbcType=REAL},
+      </if>
+      <if test="settlement != null" >
+        #{settlement,jdbcType=REAL},
+      </if>
+      <if test="open != null" >
+        #{open,jdbcType=REAL},
+      </if>
+      <if test="high != null" >
+        #{high,jdbcType=REAL},
+      </if>
+      <if test="low != null" >
+        #{low,jdbcType=REAL},
+      </if>
+      <if test="volume != null" >
+        #{volume,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="ticktime != null" >
+        #{ticktime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bigbird.shares.pojo.list.SharesList" >
+    update shares_list
+    <set >
+      <if test="symbol != null" >
+        symbol = #{symbol,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="trade != null" >
+        trade = #{trade,jdbcType=REAL},
+      </if>
+      <if test="pricechange != null" >
+        pricechange = #{pricechange,jdbcType=REAL},
+      </if>
+      <if test="changepercent != null" >
+        changepercent = #{changepercent,jdbcType=REAL},
+      </if>
+      <if test="buy != null" >
+        buy = #{buy,jdbcType=REAL},
+      </if>
+      <if test="sell != null" >
+        sell = #{sell,jdbcType=REAL},
+      </if>
+      <if test="settlement != null" >
+        settlement = #{settlement,jdbcType=REAL},
+      </if>
+      <if test="open != null" >
+        open = #{open,jdbcType=REAL},
+      </if>
+      <if test="high != null" >
+        high = #{high,jdbcType=REAL},
+      </if>
+      <if test="low != null" >
+        low = #{low,jdbcType=REAL},
+      </if>
+      <if test="volume != null" >
+        volume = #{volume,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="ticktime != null" >
+        ticktime = #{ticktime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bigbird.shares.pojo.list.SharesList" >
+    update shares_list
+    set symbol = #{symbol,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      trade = #{trade,jdbcType=REAL},
+      pricechange = #{pricechange,jdbcType=REAL},
+      changepercent = #{changepercent,jdbcType=REAL},
+      buy = #{buy,jdbcType=REAL},
+      sell = #{sell,jdbcType=REAL},
+      settlement = #{settlement,jdbcType=REAL},
+      open = #{open,jdbcType=REAL},
+      high = #{high,jdbcType=REAL},
+      low = #{low,jdbcType=REAL},
+      volume = #{volume,jdbcType=DECIMAL},
+      amount = #{amount,jdbcType=DECIMAL},
+      code = #{code,jdbcType=VARCHAR},
+      ticktime = #{ticktime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
