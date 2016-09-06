@@ -85,4 +85,47 @@ public class SharesListServiceImpl implements SharesListService {
 		}
 		return baseModel;
 	}
+	@Override
+	public int updateByPrimaryKeySelective(String appkey, String apiUrl, int page, String type) {
+		String response = null;
+		int result = 0;
+		String url = apiUrl + type;// 请求接口地址
+		Map<String, String> params = new HashMap<String, String>();// 请求参数
+		params.put("key", appkey);// 您申请的APPKEY
+		params.put("page", String.valueOf(page));// 第几页,每页20条数据,默认第1页
+		try {
+			response = Utils.netRequest(url, params, "GET");
+			System.out.println(response);
+			JSONObject responseJson = JSONObject.parseObject(response);
+			JSONObject resultJson = responseJson.getJSONObject("result");
+			if (responseJson.getIntValue("error_code") == 0) {
+				JSONArray data = resultJson.getJSONArray("data");
+				for (int i = 0; i < data.size(); i++) {
+					sharesList.setSymbol(data.getJSONObject(i).getString("symbol"));
+					sharesList.setName(data.getJSONObject(i).getString("name"));
+					sharesList.setTrade(data.getJSONObject(i).getString("trade"));
+					sharesList.setPricechange(data.getJSONObject(i).getString("pricechange"));
+					sharesList.setChangepercent(data.getJSONObject(i).getString("changepercent"));
+					sharesList.setBuy(data.getJSONObject(i).getString("buy"));
+					sharesList.setSell(data.getJSONObject(i).getString("sell"));
+					sharesList.setSettlement(data.getJSONObject(i).getString("settlement"));
+					sharesList.setOpen(data.getJSONObject(i).getString("open"));
+					sharesList.setHigh(data.getJSONObject(i).getString("high"));
+					sharesList.setLow(data.getJSONObject(i).getString("low"));
+					sharesList.setVolume(data.getJSONObject(i).getString("volume"));
+					sharesList.setAmount(data.getJSONObject(i).getString("amount"));
+					sharesList.setCode(data.getJSONObject(i).getString("symbol").substring(2));
+					sharesList.setTicktime(data.getJSONObject(i).getString("ticktime"));
+					result = sharesListMapper.updateByPrimaryKeySelective(sharesList);
+				}
+				logger.info("保存成功");
+			} else {
+				logger.error(responseJson.get("error_code") + ":" + responseJson.get("reason"));
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

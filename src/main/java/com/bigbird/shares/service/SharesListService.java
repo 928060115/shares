@@ -7,4 +7,6 @@ public interface SharesListService {
 	public int insertSharesList(String appkey,String apiUrl,int page,String type);
 	
 	public BaseModel querySharesListByCode(String code);
+	
+	public int updateByPrimaryKeySelective(String appkey,String apiUrl,int page,String type);
 }

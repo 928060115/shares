@@ -1,3 +1,4 @@
+package com.bigbird.shares.quartz;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -11,7 +12,7 @@ import java.util.Map;
  * @author: liuyang
  * @date: 2016年9月6日 下午2:23:22
  */
-public class Test {
+public class NetWork {
 	/**
 	 * 向指定URL发送GET方法的请求
 	 * 
