@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bigbird.shares.base.BaseModel;
 import com.bigbird.shares.service.SharesListService;
+import com.bigbird.shares.service.impl.SharesListServiceImpl;
 
 @Controller
 @RequestMapping(value="/sharesList")
@@ -18,9 +20,18 @@ public class SharesListAction {
 	@Resource
 	private SharesListService sharesListService;
 	
+	
 	@RequestMapping(value="/insertSharesList", method = RequestMethod.GET)
 	@ResponseBody
-	public int queryFundInfoByFundCode(HttpServletRequest request,HttpServletResponse response,int page,String type) throws Exception {
-		return sharesListService.insertSharesList(page, type);
+	public int insertSharesList(HttpServletRequest request,HttpServletResponse response,int page,String type) throws Exception {
+		String appkey = request.getServletContext().getAttribute("APPKEY").toString();
+		String apiUrl = request.getServletContext().getAttribute("apiUrl").toString();
+		return sharesListService.insertSharesList(appkey,apiUrl,page, type);
+	}
+	
+	@RequestMapping(value="/querySharesList", method = RequestMethod.GET)
+	@ResponseBody
+	public BaseModel querySharesList(HttpServletRequest request,HttpServletResponse response,String code) throws Exception {
+		return sharesListService.querySharesListByCode(code);
 	}
 }

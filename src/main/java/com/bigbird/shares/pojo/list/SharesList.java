@@ -1,47 +1,35 @@
 package com.bigbird.shares.pojo.list;
 
-import java.math.BigDecimal;
-
 public class SharesList {
-    private Integer id;
-
     private String symbol;
 
     private String name;
 
-    private Float trade;
+    private String trade;
 
-    private Float pricechange;
+    private String pricechange;
 
-    private Float changepercent;
+    private String changepercent;
 
-    private Float buy;
+    private String buy;
 
-    private Float sell;
+    private String sell;
 
-    private Float settlement;
+    private String settlement;
 
-    private Float open;
+    private String open;
 
-    private Float high;
+    private String high;
 
-    private Float low;
+    private String low;
 
-    private BigDecimal volume;
+    private String volume;
 
-    private BigDecimal amount;
+    private String amount;
 
     private String code;
 
     private String ticktime;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getSymbol() {
         return symbol;
@@ -59,92 +47,92 @@ public class SharesList {
         this.name = name == null ? null : name.trim();
     }
 
-    public Float getTrade() {
+    public String getTrade() {
         return trade;
     }
 
-    public void setTrade(Float trade) {
-        this.trade = trade;
+    public void setTrade(String trade) {
+        this.trade = trade == null ? null : trade.trim();
     }
 
-    public Float getPricechange() {
+    public String getPricechange() {
         return pricechange;
     }
 
-    public void setPricechange(Float pricechange) {
-        this.pricechange = pricechange;
+    public void setPricechange(String pricechange) {
+        this.pricechange = pricechange == null ? null : pricechange.trim();
     }
 
-    public Float getChangepercent() {
+    public String getChangepercent() {
         return changepercent;
     }
 
-    public void setChangepercent(Float changepercent) {
-        this.changepercent = changepercent;
+    public void setChangepercent(String changepercent) {
+        this.changepercent = changepercent == null ? null : changepercent.trim();
     }
 
-    public Float getBuy() {
+    public String getBuy() {
         return buy;
     }
 
-    public void setBuy(Float buy) {
-        this.buy = buy;
+    public void setBuy(String buy) {
+        this.buy = buy == null ? null : buy.trim();
     }
 
-    public Float getSell() {
+    public String getSell() {
         return sell;
     }
 
-    public void setSell(Float sell) {
-        this.sell = sell;
+    public void setSell(String sell) {
+        this.sell = sell == null ? null : sell.trim();
     }
 
-    public Float getSettlement() {
+    public String getSettlement() {
         return settlement;
     }
 
-    public void setSettlement(Float settlement) {
-        this.settlement = settlement;
+    public void setSettlement(String settlement) {
+        this.settlement = settlement == null ? null : settlement.trim();
     }
 
-    public Float getOpen() {
+    public String getOpen() {
         return open;
     }
 
-    public void setOpen(Float open) {
-        this.open = open;
+    public void setOpen(String open) {
+        this.open = open == null ? null : open.trim();
     }
 
-    public Float getHigh() {
+    public String getHigh() {
         return high;
     }
 
-    public void setHigh(Float high) {
-        this.high = high;
+    public void setHigh(String high) {
+        this.high = high == null ? null : high.trim();
     }
 
-    public Float getLow() {
+    public String getLow() {
         return low;
     }
 
-    public void setLow(Float low) {
-        this.low = low;
+    public void setLow(String low) {
+        this.low = low == null ? null : low.trim();
     }
 
-    public BigDecimal getVolume() {
+    public String getVolume() {
         return volume;
     }
 
-    public void setVolume(BigDecimal volume) {
-        this.volume = volume;
+    public void setVolume(String volume) {
+        this.volume = volume == null ? null : volume.trim();
     }
 
-    public BigDecimal getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+    public void setAmount(String amount) {
+        this.amount = amount == null ? null : amount.trim();
     }
 
     public String getCode() {

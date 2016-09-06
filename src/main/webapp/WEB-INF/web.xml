@@ -12,6 +12,7 @@
 
 	<!-- 启动加载 -->
 	<listener>
+		<description>ServletContextListener</description>  
 		<listener-class>com.bigbird.shares.base.LoadConfigurationListener</listener-class>
 	</listener>
 	<!-- 编码过滤器 -->

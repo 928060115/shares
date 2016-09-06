@@ -4,14 +4,10 @@ package com.bigbird.shares.base;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.apache.commons.configuration.ConfigurationUtils;
+import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
-import org.apache.commons.configuration.reloading.FileChangedReloadingStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.hjb.common.util.ConfigureUtil;
-import com.hjb.common.util.Util;
 
 /**
  * @ClassName: LoadConfigurationListener
@@ -22,7 +18,7 @@ import com.hjb.common.util.Util;
 public class LoadConfigurationListener implements ServletContextListener {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
-	public static final String configFile = "/config.propertis";
+	public static final String configFile = "/config.properties";
 
 	@Override
 	// 实现其中的销毁函数
@@ -37,13 +33,19 @@ public class LoadConfigurationListener implements ServletContextListener {
 		// TODO Auto-generated method stub
 		logger.debug("loadConfiguration...");
 		// -------------------------------权限配置文件
-		PropertiesConfiguration authConfig = new PropertiesConfiguration();
-		authConfig.setEncoding("utf-8");
-		authConfig.setURL(ConfigureUtil.class.getResource(configFile));
-		authConfig.setReloadingStrategy(new FileChangedReloadingStrategy());
-		ConfigurationUtils.dump(authConfig, System.out);
-		event.getServletContext().setAttribute("APPKEY", authConfig.getStringArray("APPKEY"));
-		event.getServletContext().setAttribute("apiUrl", authConfig.getStringArray("apiUrl"));
+		PropertiesConfiguration authConfig;
+		try {
+			authConfig = new PropertiesConfiguration(configFile);
+			authConfig.setEncoding("utf-8");
+			authConfig.load();
+			event.getServletContext().setAttribute("APPKEY", authConfig.getString("APPKEY"));
+			event.getServletContext().setAttribute("apiUrl", authConfig.getString("apiUrl"));
+		} catch (ConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 }

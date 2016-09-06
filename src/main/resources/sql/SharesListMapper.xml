@@ -2,55 +2,61 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.bigbird.shares.mapper.list.SharesListMapper" >
   <resultMap id="BaseResultMap" type="com.bigbird.shares.pojo.list.SharesList" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="symbol" property="symbol" jdbcType="VARCHAR" />
+    <id column="symbol" property="symbol" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="trade" property="trade" jdbcType="REAL" />
-    <result column="pricechange" property="pricechange" jdbcType="REAL" />
-    <result column="changepercent" property="changepercent" jdbcType="REAL" />
-    <result column="buy" property="buy" jdbcType="REAL" />
-    <result column="sell" property="sell" jdbcType="REAL" />
-    <result column="settlement" property="settlement" jdbcType="REAL" />
-    <result column="open" property="open" jdbcType="REAL" />
-    <result column="high" property="high" jdbcType="REAL" />
-    <result column="low" property="low" jdbcType="REAL" />
-    <result column="volume" property="volume" jdbcType="DECIMAL" />
-    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="trade" property="trade" jdbcType="VARCHAR" />
+    <result column="pricechange" property="pricechange" jdbcType="VARCHAR" />
+    <result column="changepercent" property="changepercent" jdbcType="VARCHAR" />
+    <result column="buy" property="buy" jdbcType="VARCHAR" />
+    <result column="sell" property="sell" jdbcType="VARCHAR" />
+    <result column="settlement" property="settlement" jdbcType="VARCHAR" />
+    <result column="open" property="open" jdbcType="VARCHAR" />
+    <result column="high" property="high" jdbcType="VARCHAR" />
+    <result column="low" property="low" jdbcType="VARCHAR" />
+    <result column="volume" property="volume" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="VARCHAR" />
     <result column="code" property="code" jdbcType="VARCHAR" />
     <result column="ticktime" property="ticktime" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, symbol, name, trade, pricechange, changepercent, buy, sell, settlement, open, 
-    high, low, volume, amount, code, ticktime
+    symbol, name, trade, pricechange, changepercent, buy, sell, settlement, open, high, 
+    low, volume, amount, code, ticktime
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from shares_list
-    where id = #{id,jdbcType=INTEGER}
+    where symbol = #{symbol,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  
+  <select id="selectByCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shares_list
+    where code = #{code,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from shares_list
-    where id = #{id,jdbcType=INTEGER}
+    where symbol = #{symbol,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.bigbird.shares.pojo.list.SharesList" >
-    insert into shares_list (id, symbol, name, 
-      trade, pricechange, changepercent, 
-      buy, sell, settlement, open, 
-      high, low, volume, amount, 
-      code, ticktime)
-    values (#{id,jdbcType=INTEGER}, #{symbol,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{trade,jdbcType=REAL}, #{pricechange,jdbcType=REAL}, #{changepercent,jdbcType=REAL}, 
-      #{buy,jdbcType=REAL}, #{sell,jdbcType=REAL}, #{settlement,jdbcType=REAL}, #{open,jdbcType=REAL}, 
-      #{high,jdbcType=REAL}, #{low,jdbcType=REAL}, #{volume,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, 
-      #{code,jdbcType=VARCHAR}, #{ticktime,jdbcType=VARCHAR})
+    insert into shares_list (symbol, name, trade, 
+      pricechange, changepercent, buy, 
+      sell, settlement, open, 
+      high, low, volume, 
+      amount, code, ticktime
+      )
+    values (#{symbol,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{trade,jdbcType=VARCHAR}, 
+      #{pricechange,jdbcType=VARCHAR}, #{changepercent,jdbcType=VARCHAR}, #{buy,jdbcType=VARCHAR}, 
+      #{sell,jdbcType=VARCHAR}, #{settlement,jdbcType=VARCHAR}, #{open,jdbcType=VARCHAR}, 
+      #{high,jdbcType=VARCHAR}, #{low,jdbcType=VARCHAR}, #{volume,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{ticktime,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.bigbird.shares.pojo.list.SharesList" >
     insert into shares_list
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
       <if test="symbol != null" >
         symbol,
       </if>
@@ -98,9 +104,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="symbol != null" >
         #{symbol,jdbcType=VARCHAR},
       </if>
@@ -108,37 +111,37 @@
         #{name,jdbcType=VARCHAR},
       </if>
       <if test="trade != null" >
-        #{trade,jdbcType=REAL},
+        #{trade,jdbcType=VARCHAR},
       </if>
       <if test="pricechange != null" >
-        #{pricechange,jdbcType=REAL},
+        #{pricechange,jdbcType=VARCHAR},
       </if>
       <if test="changepercent != null" >
-        #{changepercent,jdbcType=REAL},
+        #{changepercent,jdbcType=VARCHAR},
       </if>
       <if test="buy != null" >
-        #{buy,jdbcType=REAL},
+        #{buy,jdbcType=VARCHAR},
       </if>
       <if test="sell != null" >
-        #{sell,jdbcType=REAL},
+        #{sell,jdbcType=VARCHAR},
       </if>
       <if test="settlement != null" >
-        #{settlement,jdbcType=REAL},
+        #{settlement,jdbcType=VARCHAR},
       </if>
       <if test="open != null" >
-        #{open,jdbcType=REAL},
+        #{open,jdbcType=VARCHAR},
       </if>
       <if test="high != null" >
-        #{high,jdbcType=REAL},
+        #{high,jdbcType=VARCHAR},
       </if>
       <if test="low != null" >
-        #{low,jdbcType=REAL},
+        #{low,jdbcType=VARCHAR},
       </if>
       <if test="volume != null" >
-        #{volume,jdbcType=DECIMAL},
+        #{volume,jdbcType=VARCHAR},
       </if>
       <if test="amount != null" >
-        #{amount,jdbcType=DECIMAL},
+        #{amount,jdbcType=VARCHAR},
       </if>
       <if test="code != null" >
         #{code,jdbcType=VARCHAR},
@@ -151,44 +154,41 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.bigbird.shares.pojo.list.SharesList" >
     update shares_list
     <set >
-      <if test="symbol != null" >
-        symbol = #{symbol,jdbcType=VARCHAR},
-      </if>
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="trade != null" >
-        trade = #{trade,jdbcType=REAL},
+        trade = #{trade,jdbcType=VARCHAR},
       </if>
       <if test="pricechange != null" >
-        pricechange = #{pricechange,jdbcType=REAL},
+        pricechange = #{pricechange,jdbcType=VARCHAR},
       </if>
       <if test="changepercent != null" >
-        changepercent = #{changepercent,jdbcType=REAL},
+        changepercent = #{changepercent,jdbcType=VARCHAR},
       </if>
       <if test="buy != null" >
-        buy = #{buy,jdbcType=REAL},
+        buy = #{buy,jdbcType=VARCHAR},
       </if>
       <if test="sell != null" >
-        sell = #{sell,jdbcType=REAL},
+        sell = #{sell,jdbcType=VARCHAR},
       </if>
       <if test="settlement != null" >
-        settlement = #{settlement,jdbcType=REAL},
+        settlement = #{settlement,jdbcType=VARCHAR},
       </if>
       <if test="open != null" >
-        open = #{open,jdbcType=REAL},
+        open = #{open,jdbcType=VARCHAR},
       </if>
       <if test="high != null" >
-        high = #{high,jdbcType=REAL},
+        high = #{high,jdbcType=VARCHAR},
       </if>
       <if test="low != null" >
-        low = #{low,jdbcType=REAL},
+        low = #{low,jdbcType=VARCHAR},
       </if>
       <if test="volume != null" >
-        volume = #{volume,jdbcType=DECIMAL},
+        volume = #{volume,jdbcType=VARCHAR},
       </if>
       <if test="amount != null" >
-        amount = #{amount,jdbcType=DECIMAL},
+        amount = #{amount,jdbcType=VARCHAR},
       </if>
       <if test="code != null" >
         code = #{code,jdbcType=VARCHAR},
@@ -197,25 +197,24 @@
         ticktime = #{ticktime,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where symbol = #{symbol,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.bigbird.shares.pojo.list.SharesList" >
     update shares_list
-    set symbol = #{symbol,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
-      trade = #{trade,jdbcType=REAL},
-      pricechange = #{pricechange,jdbcType=REAL},
-      changepercent = #{changepercent,jdbcType=REAL},
-      buy = #{buy,jdbcType=REAL},
-      sell = #{sell,jdbcType=REAL},
-      settlement = #{settlement,jdbcType=REAL},
-      open = #{open,jdbcType=REAL},
-      high = #{high,jdbcType=REAL},
-      low = #{low,jdbcType=REAL},
-      volume = #{volume,jdbcType=DECIMAL},
-      amount = #{amount,jdbcType=DECIMAL},
+    set name = #{name,jdbcType=VARCHAR},
+      trade = #{trade,jdbcType=VARCHAR},
+      pricechange = #{pricechange,jdbcType=VARCHAR},
+      changepercent = #{changepercent,jdbcType=VARCHAR},
+      buy = #{buy,jdbcType=VARCHAR},
+      sell = #{sell,jdbcType=VARCHAR},
+      settlement = #{settlement,jdbcType=VARCHAR},
+      open = #{open,jdbcType=VARCHAR},
+      high = #{high,jdbcType=VARCHAR},
+      low = #{low,jdbcType=VARCHAR},
+      volume = #{volume,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=VARCHAR},
       code = #{code,jdbcType=VARCHAR},
       ticktime = #{ticktime,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    where symbol = #{symbol,jdbcType=VARCHAR}
   </update>
 </mapper>

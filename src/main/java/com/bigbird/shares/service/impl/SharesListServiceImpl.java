@@ -12,26 +12,25 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.bigbird.shares.base.BaseModel;
 import com.bigbird.shares.mapper.list.SharesListMapper;
 import com.bigbird.shares.pojo.list.SharesList;
 import com.bigbird.shares.service.SharesListService;
 import com.bigbird.shares.utils.Utils;
-import com.hjb.common.util.SpringUtil;
 
 @Service
 public class SharesListServiceImpl implements SharesListService {
 
 	private Logger logger = LoggerFactory.getLogger(SharesListServiceImpl.class);
 	@Resource
-	private SharesListMapper SharesListMapper;
+	public SharesListMapper sharesListMapper;
 
+	BaseModel baseModel = new BaseModel();
 	SharesList sharesList = new SharesList();
-
 	@Override
-	public int insertSharesList(int page, String type) {
+	public int insertSharesList(String appkey,String apiUrl,int page, String type) {
 		// TODO Auto-generated method stub
-		String appkey = SpringUtil.getContext().getAttribute("APPKEY").toString();
-		String apiUrl = SpringUtil.getContext().getAttribute("apiUrl").toString();
+		
 		String response = null;
 		int result = 0;
 		String url = apiUrl + type;// 请求接口地址
@@ -48,20 +47,20 @@ public class SharesListServiceImpl implements SharesListService {
 				for (int i = 0; i < data.size(); i++) {
 					sharesList.setSymbol(data.getJSONObject(i).getString("symbol"));
 					sharesList.setName(data.getJSONObject(i).getString("name"));
-					sharesList.setTrade(Float.parseFloat(data.getJSONObject(i).getString("trade")));
-					sharesList.setPricechange(Float.parseFloat(data.getJSONObject(i).getString("pricechange")));
-					sharesList.setChangepercent(Float.parseFloat(data.getJSONObject(i).getString("changepercent")));
-					sharesList.setBuy(Float.parseFloat(data.getJSONObject(i).getString("buy")));
-					sharesList.setSell(Float.parseFloat(data.getJSONObject(i).getString("sell")));
-					sharesList.setSettlement(Float.parseFloat(data.getJSONObject(i).getString("settlement")));
-					sharesList.setOpen(Float.parseFloat(data.getJSONObject(i).getString("open")));
-					sharesList.setHigh(Float.parseFloat(data.getJSONObject(i).getString("high")));
-					sharesList.setLow(Float.parseFloat(data.getJSONObject(i).getString("low")));
-					sharesList.setVolume(new BigDecimal(data.getJSONObject(i).getString("volume")));
-					sharesList.setAmount(new BigDecimal(data.getJSONObject(i).getString("amount")));
+					sharesList.setTrade(data.getJSONObject(i).getString("trade"));
+					sharesList.setPricechange(data.getJSONObject(i).getString("pricechange"));
+					sharesList.setChangepercent(data.getJSONObject(i).getString("changepercent"));
+					sharesList.setBuy(data.getJSONObject(i).getString("buy"));
+					sharesList.setSell(data.getJSONObject(i).getString("sell"));
+					sharesList.setSettlement(data.getJSONObject(i).getString("settlement"));
+					sharesList.setOpen(data.getJSONObject(i).getString("open"));
+					sharesList.setHigh(data.getJSONObject(i).getString("high"));
+					sharesList.setLow(data.getJSONObject(i).getString("low"));
+					sharesList.setVolume(data.getJSONObject(i).getString("volume"));
+					sharesList.setAmount(data.getJSONObject(i).getString("amount"));
 					sharesList.setCode(data.getJSONObject(i).getString("symbol").substring(2));
 					sharesList.setTicktime(data.getJSONObject(i).getString("ticktime"));
-					result = SharesListMapper.insertSelective(sharesList);
+					result = this.sharesListMapper.insertSelective(sharesList);
 				}
 				logger.info("保存成功");
 			} else {
@@ -73,5 +72,17 @@ public class SharesListServiceImpl implements SharesListService {
 		}
 		return result;
 	}
-
+	@Override
+	public BaseModel querySharesListByCode(String code) {
+		sharesList = sharesListMapper.selectByCode(code);
+		if (sharesList!=null) {
+			baseModel.setData(sharesList);
+			baseModel.setResult("success");
+			baseModel.setSuccess("true");
+		}else{
+			baseModel.setResult("fail");
+			baseModel.setSuccess("false");
+		}
+		return baseModel;
+	}
 }

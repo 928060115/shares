@@ -3,13 +3,15 @@ package com.bigbird.shares.mapper.list;
 import com.bigbird.shares.pojo.list.SharesList;
 
 public interface SharesListMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(String symbol);
 
     int insert(SharesList record);
 
     int insertSelective(SharesList record);
 
-    SharesList selectByPrimaryKey(Integer id);
+    SharesList selectByPrimaryKey(String symbol);
+    
+    SharesList selectByCode(String code);
 
     int updateByPrimaryKeySelective(SharesList record);
 
