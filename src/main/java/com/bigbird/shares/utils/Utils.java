@@ -13,7 +13,12 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Utils {
+	
+	private static Logger logger = LoggerFactory.getLogger(Utils.class);
 	
 	public static final String DEF_CHATSET = "UTF-8";
 	public static final int DEF_CONN_TIMEOUT = 30000;
@@ -71,6 +76,7 @@ public class Utils {
 			StringBuffer sb = new StringBuffer();
 			if (method == null || method.equals("GET")) {
 				strUrl = strUrl + "?" + urlencode(params);
+				logger.info(strUrl);
 			}
 			URL url = new URL(strUrl);
 			conn = (HttpURLConnection) url.openConnection();

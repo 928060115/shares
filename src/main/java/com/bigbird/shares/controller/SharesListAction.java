@@ -31,7 +31,9 @@ public class SharesListAction {
 	@RequestMapping(value="/querySharesList", method = RequestMethod.GET)
 	@ResponseBody
 	public BaseModel querySharesList(HttpServletRequest request,HttpServletResponse response,String code) throws Exception {
-		return sharesListService.querySharesListByCode(code);
+		String apiUrl = "http://web.juhe.cn:8080/finance/stock/hs";
+		String appkey = request.getServletContext().getAttribute("APPKEY").toString();
+		return sharesListService.querySharesListByCode(appkey,apiUrl,code);
 	}
 	
 	@RequestMapping(value="/updateByPrimaryKeySelective", method = RequestMethod.GET)

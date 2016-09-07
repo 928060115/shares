@@ -26,8 +26,9 @@ public class SharesListServiceImpl implements SharesListService {
 	public SharesListMapper sharesListMapper;
 
 	BaseModel baseModel = new BaseModel();
+
 	@Override
-	public int insertSharesList(String appkey,String apiUrl,int page, String type) {
+	public int insertSharesList(String appkey, String apiUrl, int page, String type) {
 		// TODO Auto-generated method stub
 		SharesList sharesList = new SharesList();
 		String response = null;
@@ -71,21 +72,40 @@ public class SharesListServiceImpl implements SharesListService {
 		}
 		return result;
 	}
+
 	@Override
-	public BaseModel querySharesListByCode(String code) {
+	public BaseModel querySharesListByCode(String appkey, String apiUrl, String code) {
 		SharesList sharesList = new SharesList();
 		sharesList = sharesListMapper.selectByCode(code);
-		if (sharesList!=null) {
-			baseModel.setData(sharesList);
-			baseModel.setResult("success");
-			baseModel.setSuccess("true");
-		}else{
-			baseModel.setData(sharesList);
-			baseModel.setResult("fail");
-			baseModel.setSuccess("false");
+		String response = null;
+		String url = apiUrl;// 请求接口地址
+		Map<String, String> params = new HashMap<String, String>();// 请求参数
+	
+		params.put("gid", sharesList.getSymbol());
+		params.put("key", appkey);// 您申请的APPKEY
+		try {
+			response = Utils.netRequest(url, params, "GET");
+			System.out.println(response);
+			JSONObject responseJson = JSONObject.parseObject(response);
+			if (responseJson.getIntValue("error_code") == 0) {
+				JSONArray resultJson = responseJson.getJSONArray("result");
+				baseModel.setData(resultJson);
+				baseModel.setResult("success");
+				baseModel.setSuccess("true");
+				logger.info("保存成功");
+			} else {
+				logger.error(responseJson.get("error_code") + ":" + responseJson.get("reason"));
+				baseModel.setData(responseJson.get("reason"));
+				baseModel.setResult("success");
+				baseModel.setSuccess("false");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return baseModel;
 	}
+
 	@Override
 	public int updateByPrimaryKeySelective(String appkey, String apiUrl, int page, String type) {
 		SharesList sharesList = new SharesList();

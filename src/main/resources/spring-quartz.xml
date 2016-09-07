@@ -46,7 +46,7 @@
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="MyTaskMethod"></property>
 		<!--每天10点15分触发 -->
-		<property name="cronExpression" value="0 30 15 ? * *"></property>
+		<property name="cronExpression" value="0 32 17 ? * *"></property>
 		<!-- 每小时的第一分钟触发 -->
 		<!-- <property name="cronExpression" value="0 1 * * * ?"></property> -->
 	</bean>
