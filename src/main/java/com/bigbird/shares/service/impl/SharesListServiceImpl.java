@@ -26,11 +26,10 @@ public class SharesListServiceImpl implements SharesListService {
 	public SharesListMapper sharesListMapper;
 
 	BaseModel baseModel = new BaseModel();
-	SharesList sharesList = new SharesList();
 	@Override
 	public int insertSharesList(String appkey,String apiUrl,int page, String type) {
 		// TODO Auto-generated method stub
-		
+		SharesList sharesList = new SharesList();
 		String response = null;
 		int result = 0;
 		String url = apiUrl + type;// 请求接口地址
@@ -74,12 +73,14 @@ public class SharesListServiceImpl implements SharesListService {
 	}
 	@Override
 	public BaseModel querySharesListByCode(String code) {
+		SharesList sharesList = new SharesList();
 		sharesList = sharesListMapper.selectByCode(code);
 		if (sharesList!=null) {
 			baseModel.setData(sharesList);
 			baseModel.setResult("success");
 			baseModel.setSuccess("true");
 		}else{
+			baseModel.setData(sharesList);
 			baseModel.setResult("fail");
 			baseModel.setSuccess("false");
 		}
@@ -87,6 +88,7 @@ public class SharesListServiceImpl implements SharesListService {
 	}
 	@Override
 	public int updateByPrimaryKeySelective(String appkey, String apiUrl, int page, String type) {
+		SharesList sharesList = new SharesList();
 		String response = null;
 		int result = 0;
 		String url = apiUrl + type;// 请求接口地址

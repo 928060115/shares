@@ -3,6 +3,13 @@
 	version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	
+	 <!-- 不拦截静态文件 -->
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/page/*</url-pattern>
+    </servlet-mapping>
+	
 	<display-name>shares</display-name>
 	<!-- Spring和mybatis的配置文件 -->
 	<context-param>
