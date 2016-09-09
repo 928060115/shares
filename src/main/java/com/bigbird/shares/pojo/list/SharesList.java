@@ -1,7 +1,17 @@
 package com.bigbird.shares.pojo.list;
 
-public class SharesList {
-    private String symbol;
+import java.io.Serializable;
+
+public class SharesList implements Serializable{
+	
+    /**
+	 * @fieldName: serialVersionUID
+	 * @fieldType: long
+	 * @Description: TODO
+	 */
+	private static final long serialVersionUID = 2206775733671406830L;
+
+	private String symbol;
 
     private String name;
 

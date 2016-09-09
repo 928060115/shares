@@ -39,6 +39,13 @@
 		<property name="dataSource" ref="dataSource" />
 		<!-- 自动扫描mapping.xml文件 -->
 		<property name="mapperLocations" value="classpath*:sql/*.xml"></property>
+		<property name="configurationProperties">
+			<props>
+				<prop	key="cacheEnabled">true</prop>
+				<prop	key="lazyLoadingEnabled">false</prop>
+				<prop	key="aggressiveLazyLoading">true</prop>
+			</props>
+		</property>
 	</bean>
 
 	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->

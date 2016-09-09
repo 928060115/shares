@@ -1,6 +1,6 @@
 package com.bigbird.shares.service.impl;
 
-import java.math.BigDecimal;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,8 +19,14 @@ import com.bigbird.shares.service.SharesListService;
 import com.bigbird.shares.utils.Utils;
 
 @Service
-public class SharesListServiceImpl implements SharesListService {
+public class SharesListServiceImpl implements SharesListService,Serializable {
 
+	/**
+	 * @fieldName: serialVersionUID
+	 * @fieldType: long
+	 * @Description: TODO
+	 */
+	private static final long serialVersionUID = -5780811290018711566L;
 	private Logger logger = LoggerFactory.getLogger(SharesListServiceImpl.class);
 	@Resource
 	public SharesListMapper sharesListMapper;

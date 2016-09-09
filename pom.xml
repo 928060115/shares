@@ -194,7 +194,18 @@
 			<artifactId>quartz</artifactId>
 			<version>1.8.6</version>
 		</dependency>
+		<!-- redis缓存 -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+
 	</dependencies>
+
+
+
+
 
 	<build>
 		<finalName>shares</finalName>
